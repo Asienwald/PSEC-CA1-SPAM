@@ -1,0 +1,7 @@
+50% All Western on Mondays!	Western	0	0.5
+30% off Malay on Tuesdays!	Malay	1	0.3
+20% off Drinks on Wednesday!	Drinks	2	0.2
+10% off Japanese on Thursdays!	Japanese	3	0.1
+40% off Chinese on Fridays!	Chinese	4	0.4
+20% off everything on Saturdays	All	5	0.2
+50% off everything on Sundays!!	All	6	0.5

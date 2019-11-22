@@ -1,0 +1,312 @@
+#:kivy 1.9.0
+## Set prerequisites for fonts to use
+#:set mont "fonts/Montserrat-Regular.ttf"
+#:set montbold "fonts/Montserrat-Bold.ttf"
+
+## Button for foodcourts with pictures
+<FcButton@Button>
+    font_name: montbold
+    font_size: 20
+    bold: True
+
+## my btn with my font
+<MyButton@Button>
+    font_name: mont
+
+## my label with my font
+<MyLabel@Label>
+    font_name: mont
+
+# image that acts like a button
+<ButImage@ButtonBehavior+Image>
+
+## My start screen layout
+<StartScreen>:
+    RelativeLayout:
+        Widget:
+            Label:
+                id: main-logo
+                text_size: root.width, None
+                markup: True
+                text: "[size=35][b][font=fonts/Montserrat-Regular.ttf]Welcome to SPAM[/font][/b][/size]"
+                size: self.texture_size
+                halign: "center"
+                pos: (0 , root.height - 200)
+
+            Label:
+                markup: True
+                text: "[size=15][font=fonts/Montserrat-Regular.ttf]Singapore Poly Automated Menu[/font][/size]"
+                text_size: root.width, None
+                size: self.texture_size
+                halign: "center"
+                pos: (0, root.height - 230)
+            Button:
+                text: "Start!"
+                font_size: 30
+                size: self.texture_size
+                pos: (root.width/2 - self.width/2, 250)
+                padding: (30, 10)
+                font_name: mont
+                on_press: app.change_screen('main-screen')
+
+## screen with the 6 foodcourts & search input
+<MainScreen>:
+    BoxLayout:
+        id: main_box
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "horizontal"
+            size: (root.width, root.height * 0.1)
+            size_hint: None, None
+            padding: (20, 20)
+            TextInput:
+                id: search_box
+                size_hint_x: 0.4
+                font_name: mont
+                multiline: False
+                hint_text: "Search Foods!"
+                font_size: 20
+            MyButton:
+                size_hint_x: 0.2
+                text: "Search!"
+                on_press: app.search_food()
+
+        GridLayout:
+            rows: 3
+            columns: 2
+            spacing: 10
+            padding: (20, 20)
+            font_name: mont
+
+            FcButton:
+                background_normal: "images/fc01.jpg"
+                text: "Food Court 1"
+                on_press: app.open_foodcourt(root, 0)      
+            FcButton:
+                background_normal: "images/fc02.jpg"
+                text: "Food Court 2"
+                on_press: app.open_foodcourt(root, 1)
+            FcButton:
+                text: "Food Court 3"
+                background_normal: "images/fc03.jpg"
+                on_press: app.open_foodcourt(root, 2)
+            FcButton:
+                text: "Food Court 4"
+                background_normal: "images/fc04.jpg"
+                on_press: app.open_foodcourt(root, 3)
+            FcButton:
+                text: "Food Court 5"
+                background_normal: "images/fc05.jpg"
+                on_press: app.open_foodcourt(root, 4)
+            FcButton:
+                text: "Food Court 6"
+                background_normal: "images/fc06.jpg"
+                on_press: app.open_foodcourt(root, 5)
+
+## For food stall panels button
+<FoodScrollBtn@TabbedPanelItem>
+    font_name: mont
+
+## scrollview for food list
+<FoodTabScroll@ScrollView>
+    canvas.before:
+        Color:
+            rgba: (0.18, 0.83, 0.78, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+## Box layout that acts like a button for the food labels
+<FoodLabel@ButtonBehavior+BoxLayout>
+
+## search screen that displays results
+<SearchScreen>
+    BoxLayout:
+        orientation: "vertical"
+        id: main_box
+        MyLabel:
+            markup: True
+            text: "[size=30][b]Search Results[/b][/size]"
+            font_name: mont
+            size: (root.width, root.height * 0.1)
+            size_hint: None, None
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            GridLayout:
+                cols: 1
+                padding: (10, 10)
+                id: search_grid
+                height: self.minimum_height
+                size_hint_y: None
+
+## Food court screen
+<FoodScreen>
+    BoxLayout:
+        orientation: "vertical"
+        id: main_box
+        MyLabel:
+            text: "Food Court Name"   
+            id: foodcourt_name      
+            size: (root.width, root.height * 0.2)
+            size_hint: None, None
+            font_size: 40
+            bold: True
+
+        TabbedPanel:
+            id: food_tab
+            do_default_tab: False
+            size_hint: 1, 1
+            canvas.before:
+                Color:
+                    rgba: (0.18, 0.83, 0.78, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        
+## screen for food details
+<FoodDetailsScreen>
+    BoxLayout:
+        id: main_box
+        orientation: "vertical"
+        
+        Image:
+            id: food_img
+            source: "images/fc03.jpg"
+            size: (root.width, root.height * 0.3)
+            size_hint: None, None
+        BoxLayout:
+            orientation: "horizontal"
+            size: (root.width, root.height * 0.1)
+            size_hint: None, None
+            MyLabel:
+                font_size: 30
+                text: "Food Name"
+                id: food_name
+                bold: True
+                size: (root.width * 0.6, root.height * 0.1)
+            MyLabel:
+                font_size: 20
+                id: food_price
+                text: "Food Price"
+        BoxLayout:
+            orientation: "horizontal"
+            padding: (30, 20)
+            size: (root.width, root.height * 0.2)
+            size_hint: None, None
+            MyButton:
+                text: "<"
+                font_size: 40
+                size: (100, 100)
+                size_hint: None, None
+                pos_y: self.parent.height / 2
+                id: dec_btn
+                on_press: root.dec_food_amt()
+            MyLabel:
+                id: food_amt_label
+                text: root.food_amount
+                font_size: 40
+                size: (100, 100)
+                pos_y: self.parent.height / 2
+            MyButton:
+                text: ">"
+                font_size: 40
+                size: (100, 100)
+                size_hint: None, None
+                pos_y: self.parent.height / 2
+                on_press: root.inc_food_amt()
+        RelativeLayout:
+            MyButton:
+                size_hint: (.3, .3)
+                text: "Back"
+                font_size: 30
+                pos_hint: {"x": 0.1, "y": 0.5}
+                size: self.texture_size
+                on_press: app.go_back()
+            MyButton:
+                size_hint: (.4, .3)
+                text: "Confirm"
+                font_size: 30
+                pos_hint: {"x": 0.5, "y": 0.5}
+                size: self.texture_size
+                on_press: app.modify_cart()
+
+## screen to display cart items
+<CartScreen>
+    BoxLayout:
+        id: main_box
+        orientation: "vertical"
+        MyLabel:
+            text: "My Cart"
+            font_size: 30
+            size: (root.width, root.height * 0.1)
+            size_hint: None, None
+            padding: (10, 20)
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            GridLayout:
+                cols: 1
+                padding: (10, 10)
+                id: cart_tab
+                height: self.minimum_height
+                size_hint_y: None
+                
+        AnchorLayout:
+            size: (root.width, root.height * 0.2)
+            size_hint: None, None
+            padding: (10, 40)
+            MyButton:
+                text: "Checkout"
+                font_size: 30
+                on_press: app.checkout()
+
+## checkout screen to display total items & price              
+<CheckoutScreen>
+    BoxLayout:
+        id: main_box
+        orientation: "vertical"
+        MyLabel:
+            text: "Thank you for using SPAM!"
+            font_size: 30
+            bold: True
+        MyLabel:
+            text: "You bought {} items"
+            id: items_label
+            font_size: 30
+        MyLabel:
+            text: "Your total cost is {}"
+            id: cost_label
+            font_size: 30
+        RelativeLayout:
+            MyButton:
+                text: "Exit"
+                on_press: app.stop()
+                pos_hint: {"x": .2, "y": .5}
+                size: (root.width * 0.6, root.height * 0.1)
+                size_hint: (None, None)
+
+## promo label to display promo details
+<PromoLabel@BoxLayout>
+
+## screen to display available promos
+<PromoScreen>
+    BoxLayout:
+        orientation: "vertical"
+        id: main_box
+        MyLabel:
+            markup: True
+            text: "[size=30][b]Promotions[/b][/size]"
+            font_name: mont
+            size: (root.width, root.height * 0.1)
+            size_hint: None, None
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            GridLayout:
+                cols: 1
+                padding: (10, 10)
+                id: promo_grid
+                height: self.minimum_height
+                size_hint_y: None

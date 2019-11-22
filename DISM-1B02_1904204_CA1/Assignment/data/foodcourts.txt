@@ -1,0 +1,6 @@
+Food Court 1	Western	Japanese	Chinese	Drinks	
+Food Court 2	Drinks	Malay	Chinese		
+Food Court 3	Western	Drinks			
+Food Court 4	Chinese	Malay	Japanese		
+Food Court 5	Japanese	Drinks	Malay		
+Food Court 6	Western	Japanese	Chinese	Malay	Drinks
