@@ -21,5 +21,5 @@ Submitted for Programming in Security 2019 CA2 Assignment
 | Server runs asynchronously  | Server code is programmed to run asynchronously using the asyncio module to increase efficiency when dealing with client requests as the server is able to use multiple threads|
 
 ## App Images
-![](/images/spam01.png)
-![](/images/spam02.png)
+![spam 01](/images/spam01.png)
+![spam 02](/images/spam02.png)
