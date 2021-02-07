@@ -7,6 +7,7 @@ Submitted for Programming in Security 2019 CA2 Assignment
 
 
 ## Setup
+- pip install -r requirements.txt
 - run `python /server/server.py` to start the server
 - run `python /client/main.py` to start the client GUI
 
